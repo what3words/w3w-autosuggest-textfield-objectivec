@@ -53,8 +53,8 @@
 			isa = PBXGroup;
 			children = (
 				00C5D974237C2D6100A62335 /* W3wTextField.h */,
-				00C5D972237C2D5D00A62335 /* W3wGeocoder.h */,
 				00C5D970237C2BFA00A62335 /* W3wTextField.m */,
+				00C5D972237C2D5D00A62335 /* W3wGeocoder.h */,
 				00C5D968237C2AC500A62335 /* W3wGeocoder.m */,
 				00D9701F22FD9E610036EDED /* Example */,
 				00D9701E22FD9E610036EDED /* Products */,

@@ -55,7 +55,7 @@ enum InputType { VOCONHYBRID, NMDPASR, GENERIC_VOICE };
 @property NSString *words;
 @property NSNumber *distanceToFocusKm;
 @property NSString *language;
--(id)initWithResult:(NSDictionary *)result;
+-(id)initWithResult:(NSMutableDictionary *)result;
 @end
 
 
@@ -90,11 +90,11 @@ enum InputType { VOCONHYBRID, NMDPASR, GENERIC_VOICE };
 @interface W3wGeocoder : NSObject {
   NSString *apiUrl;
   NSString *apiKey;
-  NSString *versionHeader;
-  NSString *bundleHeader;
+  NSDictionary *headers;
 }
 
 -(id)initWithApiKey:(NSString *)key;
+-(id)initWithApiKey:(NSString *)key customHeaders:(NSDictionary *)customHeaders;
 
 -(void)convertToCoordinates:(NSString *)words format:(enum Format)format completion:(void (^)(W3wPlace *place, W3wError *error))completion;
 -(void)convertToCoordinates:(NSString *)words completion:(void (^)(W3wPlace *place, W3wError *error))completion;

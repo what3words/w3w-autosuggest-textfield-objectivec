@@ -93,8 +93,40 @@ struct Coordinates {
 }
 
 -(void)setAPIKey:(NSString *)apiKey {
-    _instance = [[W3wGeocoder alloc] initWithApiKey:apiKey];
+  
+  NSDictionary *customHeaders = @{
+    @"X-W3W-AS-Component" : [NSString stringWithFormat:@"%@ %@", @"what3words-ObjC/1.2.0 ", [self figureOutVersions]]
+  };
+  
+  _instance = [[W3wGeocoder alloc] initWithApiKey:apiKey customHeaders: customHeaders];
 }
+
+
+
+// Establish the various version numbers in order to set an HTTP header for the URL session
+-(NSString *)figureOutVersions
+{
+#if TARGET_OS_IPHONE
+  NSString *os_name = [[UIDevice currentDevice] systemName];
+#else
+  NSString *os_name = @"Mac";
+#endif
+  
+  NSOperatingSystemVersion os_version   = [[NSProcessInfo processInfo] operatingSystemVersion];
+  int                      objc_version = OBJC_API_VERSION;
+  //NSString                 *api_version = [NSBundle bundleForClass:[W3wGeocoder class]].infoDictionary[@"CFBundleShortVersionString"];
+  NSBundle *bundle = [NSBundle bundleForClass:[W3wGeocoder class]];
+  NSDictionary *dictionary = bundle.infoDictionary;
+  
+  return [NSString stringWithFormat:@"(ObjC %d; %@; %ld.%ld.%ld)",
+    objc_version,
+    os_name,
+    (long)os_version.majorVersion,
+    (long)os_version.minorVersion,
+    (long)os_version.patchVersion
+    ];
+}
+
 
 - (void)setDefaultIBProperties {
     self.autoSuggestionOptions = [[NSMutableArray alloc]init];
